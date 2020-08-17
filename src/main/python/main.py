@@ -1,9 +1,18 @@
 import sys
+import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QToolBar, QAction
-
+from PIL import ImageGrab
+import pyautogui
 #QTLayouts? For more widgets/arranging...
 #We'll need this simply for the buttons...
+
+# NOTES:
+## PRIORITY: We can use XCLIP and OS interaction to copy to clipboard...
+## Is there a way we can do this without saving the file??
+# Explains cart. coords; https://pyautogui.readthedocs.io/en/latest/mouse.html
+# Better mouse events... https://doc.qt.io/qt-5/qml-qtquick-mousearea.html
+
 
 class MainWindow(QMainWindow):
 
@@ -15,20 +24,40 @@ class MainWindow(QMainWindow):
         label.setAlignment(Qt.AlignCenter)
         
         self.setCentralWidget(label)
-        
+
         #Toolbar created for tidyness. 
         toolbar = QToolBar("My main toolbar")
         self.addToolBar(toolbar)
 
-        button_action = QAction("Your button", self)
-        button_action.setStatusTip("This is your button")
+        button_action = QAction("Action", self)
+        button_exit = QAction("Exit", self)
+
+        button_action.setStatusTip("ig Action")
+        #button_exit.setStatusTip("Exitaroo")
+
         button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_exit.triggered.connect(self.exitBtnClick)
+
         toolbar.addAction(button_action)
+        toolbar.addAction(button_exit)
 
     def onMyToolBarButtonClick(self, s):
         print("click", s)
         #Get everything out of the way...
         self.hide()
+
+    def rectangleTopLeft(self,s):
+        selection = (300, 300, 550, 550)
+        im = ImageGrab.grab(selection)
+        im.save("scrnsht.png")
+        im.close()
+        #OS.system allows for cmds - we will need this
+        #Magic code... Saves the image to system clipboard
+        os.system('xclip -sel clip test.jpeg')
+
+
+    def exitBtnClick(self, s):
+        sys.exit()
 
 app = QApplication(sys.argv)
 
