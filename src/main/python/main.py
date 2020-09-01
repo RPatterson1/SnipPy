@@ -3,6 +3,7 @@ import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QToolBar, QAction
 from PIL import ImageGrab
+from pynput import mouse
 import pyautogui
 #QTLayouts? For more widgets/arranging...
 #We'll need this simply for the buttons...
@@ -42,6 +43,9 @@ class MainWindow(QMainWindow):
         toolbar.addAction(button_exit)
 
     def onMyToolBarButtonClick(self, s):
+        #Scale "self" out... Using existing window as plot for coords,
+        #No new objects = no new problems. Hide afterwards... Happy days...
+
         print("click", s)
         #Get everything out of the way...
         #self.QSize
@@ -58,6 +62,8 @@ class MainWindow(QMainWindow):
         #OS.system allows for cmds - we will need this
         #Magic code... Saves the image to system clipboard
         os.system('xclip -sel clip scrnsht.png')
+
+        with listener 
 
 
     def exitBtnClick(self, s):
