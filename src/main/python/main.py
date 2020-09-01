@@ -44,7 +44,11 @@ class MainWindow(QMainWindow):
     def onMyToolBarButtonClick(self, s):
         print("click", s)
         #Get everything out of the way...
+        #self.QSize
         self.hide()
+        #Somehow need an "onClick" here and to pass params to def Rectangle...
+        #Get top left coord, pass it, on release get bottom right...?
+        self.rectangleTopLeft(s)
 
     def rectangleTopLeft(self,s):
         selection = (300, 300, 550, 550)
@@ -53,7 +57,7 @@ class MainWindow(QMainWindow):
         im.close()
         #OS.system allows for cmds - we will need this
         #Magic code... Saves the image to system clipboard
-        os.system('xclip -sel clip test.jpeg')
+        os.system('xclip -sel clip scrnsht.png')
 
 
     def exitBtnClick(self, s):
